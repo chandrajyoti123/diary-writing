@@ -43,3 +43,12 @@
 
 
 }
+.trashcontainer{
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+}
+.trash{
+    font-size: 25px;
+    color: white;
+}

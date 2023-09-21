@@ -2,16 +2,18 @@
 .main-container{
     width: 100vw;
     display: flex;
+    flex-wrap: wrap;
 }
 .leftpart{
     width: 50%;
     height: auto;
-    background-color: rgb(239, 209, 214);
+    /* background-color: rgb(239, 209, 214); */
 }
 .rightpart{
     width: 50%;
     height: auto;
-    background-color: rgb(190, 224, 140);
+    /* background-color: rgb(190, 224, 140); */
+    padding-top: 100px;
 }
 .input-field{
     display: flex;
