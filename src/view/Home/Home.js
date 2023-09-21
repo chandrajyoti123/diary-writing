@@ -100,6 +100,8 @@ setTask(readlocal)
         placeholder="enter title" 
         value={tasktitle}
 
+        
+        
         onChange={(e)=>{
             setTasktitle(e.target.value)
             
