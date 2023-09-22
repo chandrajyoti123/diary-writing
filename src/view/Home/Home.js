@@ -1,21 +1,22 @@
-
 import Tasks from "../../components/Tasks/Tasks";
 import { useState,useEffect } from "react";
 import './Home.css'
 const Home=(()=>{
     const [task,setTask]=useState([
-        // {  id:1,
-        // date:"14-12-2043 saturday",
-        // tasktitle:"this is me",
-        // discription:" this is tara shahu",
-        // singnature:"c.m.adil"
-        // },
-        // {  id:2,
-        // date:"12-8-2043 sunday",
-        // tasktitle:"this is my brother",
-        // discription:"this akash shahu",
-        // singnature:"a.m.adil"
-        // },
+        {  id:1,
+        date:"14-12-2043 saturday",
+        tasktitle:"this is me",
+        discription:" this is tara shahu",
+        singnature:"c.m.adil",
+        theme: '#224523'
+        },
+        {  id:2,
+        date:"12-8-2043 sunday",
+        tasktitle:"this is my brother",
+        discription:"this akash shahu",
+        singnature:"a.m.adil",
+        theme:'#343aeb'
+        },
         // {  id:3,
         // date:"10-9-2013 monday",
         // tasktitle:"this is my sister",
@@ -27,27 +28,40 @@ const Home=(()=>{
     const [date, setDate]=useState();
     const [tasktitle, setTasktitle]=useState('');
     const [discription, setDiscription]=useState();
-    const [singnature, setSingnature]=useState()
-   useEffect(()=>{
-const readlocal=JSON.parse(localStorage.getItem("list"))
-setTask(readlocal)
-   },[])
-    const settolocalstorage = (task) =>{
-        localStorage.setItem("list",JSON.stringify(task))
-    }
+    const [singnature, setSingnature]=useState();
+    
+    // ------local storag----------
+
+    useEffect(()=>{
+        const readlocal=JSON.parse(localStorage.getItem("list"))
+      if(readlocal && readlocal.length>0){
+        setTask(readlocal)
+      }
+           },[])
+            const settolocalstorage = (tassks) =>{
+                const varr=JSON.stringify(tassks)
+                localStorage.setItem("list",varr)
+            }
+   
     function addlistinarray(){
       if(date=="" || tasktitle=="" || discription=="" || singnature==""){
         return
       }
         const randomid= Math.floor((Math.random()*1000))
+        // const findcolor="#"+(Math.floor(Math.random()*(256*265*256))).toString(16);
+        const findcolor="#"+(Math.floor(Math.random()*(256*265*256))).toString(16);
+        console.log(findcolor)
+       
        
         const obj={
             id:randomid,
             date:date,
             tasktitle:tasktitle,
             discription:discription,
-            singnature:singnature
-       }
+            singnature:singnature,
+            theme:findcolor,
+                  }
+
        const newarr=[...task, obj];
        setTask(newarr)
       
@@ -55,8 +69,12 @@ setTask(readlocal)
        setTasktitle('')
        setDiscription('')
        setSingnature('')
-       settolocalstorage(newarr)
+    //    if(task && task.length>0){
+        settolocalstorage(newarr)
 
+
+    //    }
+      
 
 
     }
@@ -69,20 +87,28 @@ setTask(readlocal)
         settolocalstorage(virtualarr)
 
     }
+    // const [color,setColore]=useState()
+    // useEffect(()=>{
+    //     const findcolor="#" + 
+    //    (Math.floor(Math.random()*(256*265*256))).toString(16)
+    //    setColore(findcolor)
+    //    console.log(findcolor)
+    // },[task])
+
+
+
+    
     return(
         <div className="main-container">
       <div className="leftpart">
         {
 
-// product.map((productinfo) =>
-// {const {imgofproduct,title,price}=productinfo
-//     return <ProductCard  imgofproduct={imgofproduct} title={title} price={price}/>
-// })
+
             task.map((info,index)=>
             {
-                const {id,date,tasktitle,discription,singnature  }=info
+                const {id,date,tasktitle,discription,singnature,theme  }=info
                 return <Tasks  id={id} date={date} tasktitle={tasktitle} discription={discription} singnature={singnature} taskdelete={taskdeleteop}
-                obj={info} key={index}
+                obj={info} key={index} bgcolor={theme}
                 />
 
             })

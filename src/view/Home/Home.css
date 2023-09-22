@@ -3,6 +3,7 @@
     width: 100vw;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
 }
 .leftpart{
     width: 50%;
@@ -13,7 +14,7 @@
     width: 50%;
     height: auto;
     /* background-color: rgb(190, 224, 140); */
-    padding-top: 100px;
+    padding: 100px;
 }
 .input-field{
     display: flex;
