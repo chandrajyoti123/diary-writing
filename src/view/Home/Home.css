@@ -1,4 +1,6 @@
-
+/* *{
+    background-color: rgb(74, 60, 60);
+} */
 .main-container{
     width: 100vw;
     display: flex;
@@ -46,3 +48,8 @@
     margin: 10px auto;
 }
 
+.heading{
+    text-align: center;
+    font-size: 50px;
+   color: brown;
+}

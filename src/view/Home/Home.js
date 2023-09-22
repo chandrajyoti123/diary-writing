@@ -3,20 +3,20 @@ import { useState,useEffect } from "react";
 import './Home.css'
 const Home=(()=>{
     const [task,setTask]=useState([
-        {  id:1,
-        date:"14-12-2043 saturday",
-        tasktitle:"this is me",
-        discription:" this is tara shahu",
-        singnature:"c.m.adil",
-        theme: '#224523'
-        },
-        {  id:2,
-        date:"12-8-2043 sunday",
-        tasktitle:"this is my brother",
-        discription:"this akash shahu",
-        singnature:"a.m.adil",
-        theme:'#343aeb'
-        },
+        // {  id:1,
+        // date:"14-12-2043 saturday",
+        // tasktitle:"this is me",
+        // discription:" this is tara shahu",
+        // singnature:"c.m.adil",
+        // theme: '#224523'
+        // },
+        // {  id:2,
+        // date:"12-8-2043 sunday",
+        // tasktitle:"this is my brother",
+        // discription:"this akash shahu",
+        // singnature:"a.m.adil",
+        // theme:'#343aeb'
+        // },
         // {  id:3,
         // date:"10-9-2013 monday",
         // tasktitle:"this is my sister",
@@ -29,6 +29,9 @@ const Home=(()=>{
     const [tasktitle, setTasktitle]=useState('');
     const [discription, setDiscription]=useState();
     const [singnature, setSingnature]=useState();
+    const [isedite,setIsedite]=useState(false);
+    const [id,setId]=useState()
+    
     
     // ------local storag----------
 
@@ -50,7 +53,7 @@ const Home=(()=>{
         const randomid= Math.floor((Math.random()*1000))
         // const findcolor="#"+(Math.floor(Math.random()*(256*265*256))).toString(16);
         const findcolor="#"+(Math.floor(Math.random()*(256*265*256))).toString(16);
-        console.log(findcolor)
+       
        
        
         const obj={
@@ -95,7 +98,51 @@ const Home=(()=>{
     //    console.log(findcolor)
     // },[task])
 
+const editabletask=(id)=>{
+ setId(id)
+    setIsedite(true);
+    let storeelement;
 
+   task.forEach((tasklist)=>{
+      if(tasklist.id===id){
+      storeelement=tasklist;
+       }
+})
+setDate(storeelement.date)
+setTasktitle(storeelement.tasktitle)
+setDiscription(storeelement.discription)
+setSingnature(storeelement.singnature)
+
+
+}
+const setupdatedtaskaa=() =>{
+  let indexto;
+       task.forEach((tasklist,i)=>{
+        console.log(tasklist)
+        if(tasklist.id==id){
+        indexto=i}
+         })
+         let temparr=task;
+         const findcolor="#"+(Math.floor(Math.random()*(256*265*256))).toString(16);
+         temparr[indexto]={
+        
+          id:id,
+          date:date,
+          tasktitle:tasktitle,
+          discription:discription,
+          singnature:singnature,
+          theme:findcolor,
+          
+           }
+         setTask([...temparr])
+         settolocalstorage(temparr)
+
+        //  setDate('')
+        //  setTask('')
+        //  setDiscription('')
+        //  setSingnature('')
+         
+    }
 
     
     return(
@@ -106,15 +153,16 @@ const Home=(()=>{
 
             task.map((info,index)=>
             {
-                const {id,date,tasktitle,discription,singnature,theme  }=info
+                const {id,date,tasktitle,discription,singnature,theme}=info
                 return <Tasks  id={id} date={date} tasktitle={tasktitle} discription={discription} singnature={singnature} taskdelete={taskdeleteop}
-                obj={info} key={index} bgcolor={theme}
+                obj={info} key={index} bgcolor={theme} editabletask={editabletask}
                 />
 
             })
         }
       </div>
       <div className="rightpart">
+      <div className="heading">{isedite?`update the task ${id}`:`add the task`}</div>
         <div className="input-field">
         <input placeholder="enter date" value={date} onChange={(tasklist)=>{
              
@@ -133,7 +181,8 @@ const Home=(()=>{
             
         }}
         />
-
+         
+         
 
         <input placeholder="enter discription" value={discription} onChange={(tasklist)=>{
             setDiscription(tasklist.target.value)
@@ -144,7 +193,12 @@ const Home=(()=>{
 
         }}/>
         </div>
-        <button  type="button" className="btn" onClick={addlistinarray}>add this page</button>
+        <button  type="button" className="btn" onClick={setupdatedtaskaa}>
+          update
+        </button>
+        <button  type="button" className="btn" onClick={addlistinarray}>
+      add
+        </button>
         
         
       </div>

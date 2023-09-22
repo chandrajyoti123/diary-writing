@@ -48,7 +48,14 @@
     bottom: 7px;
     right: 7px;
 }
+.editcontaine{
+    position: absolute;
+    bottom: 7px;
+    right: 45px;
+
+}
 .trash{
     font-size: 25px;
     color: white;
+    cursor: pointer;
 }
