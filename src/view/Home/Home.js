@@ -1,28 +1,30 @@
 import Tasks from "../../components/Tasks/Tasks";
 import { useState, useEffect } from "react";
 import "./Home.css";
+import showToast from 'crunchy-toast';
+import { faL } from "@fortawesome/free-solid-svg-icons";
 const Home = () => {
   const [task, setTask] = useState([
-    // {  id:1,
-    // date:"14-12-2043 saturday",
-    // tasktitle:"this is me",
-    // discription:" this is tara shahu",
-    // singnature:"c.m.adil",
-    // theme: '#224523'
-    // },
-    // {  id:2,
-    // date:"12-8-2043 sunday",
-    // tasktitle:"this is my brother",
-    // discription:"this akash shahu",
-    // singnature:"a.m.adil",
-    // theme:'#343aeb'
-    // },
-    // {  id:3,
-    // date:"10-9-2013 monday",
-    // tasktitle:"this is my sister",
-    // discription:"ythis is nandani shahu",
-    // singnature:"v.m.adil"
-    // },
+    {  id:1,
+    date:"14-12-2043 saturday",
+    tasktitle:"this is me",
+    discription:" this is tara shahu",
+    singnature:"c.m.adil",
+    theme: '#224523'
+    },
+    {  id:2,
+    date:"12-8-2043 sunday",
+    tasktitle:"this is my brother",
+    discription:"this akash shahu",
+    singnature:"a.m.adil",
+    theme:'#343aeb'
+    },
+    {  id:3,
+    date:"10-9-2013 monday",
+    tasktitle:"this is my sister",
+    discription:"ythis is nandani shahu",
+    singnature:"v.m.adil"
+    },
   ]);
   const [date, setDate] = useState();
   const [tasktitle, setTasktitle] = useState("");
@@ -51,6 +53,7 @@ const Home = () => {
       discription == "" ||
       singnature == ""
     ) {
+      showToast('fill all  the input field', 'warning', 1000);
       return;
     }
     const randomid = Math.floor(Math.random() * 1000);
@@ -78,6 +81,8 @@ const Home = () => {
     settolocalstorage(newarr);
 
     //    }
+
+    showToast('your task added succesfully', 'success', 3000);
   }
   function taskdeleteop(obj) {
     const index = task.indexOf(obj);
@@ -86,6 +91,7 @@ const Home = () => {
     virtualarr.splice(index, 1);
     setTask([...virtualarr]);
     settolocalstorage(virtualarr);
+    showToast('Your task has been deleted', 'alert', 1000);
   }
   // const [color,setColore]=useState()
   // useEffect(()=>{
@@ -113,8 +119,7 @@ const Home = () => {
   const setupdatedtaskaa = () => {
     let indexto;
     task.forEach((tasklist, i) => {
-      console.log(tasklist);
-      if (tasklist.id == id) {
+     if (tasklist.id == id) {
         indexto = i;
       }
     });
@@ -136,12 +141,21 @@ const Home = () => {
     setSingnature("");
     settolocalstorage(temparr);
     setIsedite(false);
+    showToast('Your task has been updated', 'info', 2000);
   };
+  const clrearall=()=>{
+    setDate("");
+    setTasktitle("");
+    setDiscription("");
+    setSingnature("");
+    setIsedite(false);
+
+  }
 
   return (
     <div className="main-container">
       <div className="leftpart">
-        <div className="main-heading">Your task</div>
+        <div className="main-heading">Your tasks</div>
           <div className="task">
         {task.map((info, index) => {
           const { id, date, tasktitle, discription, singnature, theme } = info;
@@ -184,13 +198,20 @@ const Home = () => {
             }}
           />
 
-          <input
+          {/* <input
             placeholder="enter discription"
             value={discription}
             onChange={(tasklist) => {
               setDiscription(tasklist.target.value);
             }}
-          />
+         /> */}
+         <textarea className="text-area" 
+         rows="5" cols="33"
+          placeholder="enter your discription"
+          value={discription}
+          onChange={(tasklist) => {
+            setDiscription(tasklist.target.value);
+          }}></textarea>
           <input
             placeholder="your singnature"
             value={singnature}
@@ -206,6 +227,7 @@ const Home = () => {
         >
           {isedite ? "update" : "add"}
         </button>
+        <button onClick={clrearall}  className="btn">clrearall</button>
        
       </div>
     </div>
